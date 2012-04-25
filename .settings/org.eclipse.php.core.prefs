@@ -1,0 +1,4 @@
+#Wed Apr 25 18:09:39 BST 2012
+eclipse.preferences.version=1
+include_path=0;/Osmosys\u00055;org.zend.php.framework.CONTAINER\u00055;com.zend.php.phpunit.CONTAINER
+use_asp_tags_as_php=false
