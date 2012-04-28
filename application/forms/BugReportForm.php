@@ -63,5 +63,9 @@ class Form_BugReportForm extends Zend_Form {
 		
 		// add element: submit button
 		$this->addElement('submit', 'submit', array('label' => 'Submit'));
+		
+		//add element: hidden id
+		$id = $this->createElement('hidden', 'id');
+		$this->addElement($id);
 	}
 }

@@ -92,8 +92,54 @@ class BugController extends Zend_Controller_Action
     	$this->view->paginator = $paginator;
     }
 
+    public function editAction()
+    {
+        $bugModel = new Model_Bug(); 
+        $bugReportForm = new Form_BugReportForm(); 
+        $bugReportForm->setAction('/bug/edit'); 
+        $bugReportForm->setMethod('post'); 
+        if($this->getRequest()->isPost()) {
+			if($bugReportForm->isValid($_POST)) {
+				$bugModel = new Model_Bug();
+				
+				// if the form is valid then update the bug 
+				$result = $bugModel->updateBug(
+					$bugReportForm->getValue('id'), 
+					$bugReportForm->getValue('author'), 
+					$bugReportForm->getValue('email'), 
+					$bugReportForm->getValue('date'), 
+					$bugReportForm->getValue('url'), 
+					$bugReportForm->getValue('description'),
+					$bugReportForm->getValue('priority'), 
+					$bugReportForm->getValue('status')
+				);
+				return $this->_forward('list');
+			 }	
+        } else {
+			$id = $this->_request->getParam('id');
+			$bug = $bugModel->find($id)->current(); 
+			$bugReportForm->populate($bug->toArray());
+			
+			//format the date field 
+			$bugReportForm->getElement('date')->setValue(date('d-m-Y', $bug->date));
+		}
+		$this->view->form = $bugReportForm;
+    }
+
+    public function deleteAction()
+    {
+        $bugModel = new Model_Bug();
+		$id = $this->_request->getParam('id'); 
+		$bugModel->deleteBug($id);
+		return $this->_forward('list');
+    }
+
 
 }
+
+
+
+
 
 
 
