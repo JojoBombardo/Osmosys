@@ -38,7 +38,7 @@ p {
 }
 
 #sidebar {
-	float: left;
+	float: right;
 	width: 17em;
 	height: 40em;
 	margin: 0 0 .5em 0;
@@ -96,4 +96,20 @@ p {
 
 .featuredItem ul{ 
 	padding:5px 30px;
+}
+
+#openPage{ 
+	width:520px;
+}
+
+#openPage blockquote{ 
+	padding:10px;
+	font-style:italic;
+}
+
+#openPage img#mainImage{ 
+	width:320px;
+	height:auto;
+	margin:0 0 10px 10px; 
+	float:right;
 }

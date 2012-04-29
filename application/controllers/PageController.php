@@ -23,7 +23,7 @@ class PageController extends Zend_Controller_Action
 			if(count($recentPages) > 0) {
 				$this->view->recentPages = $recentPages;
 			} else {
-				$this->view->recentPages = $null;
+				$this->view->recentPages = null;
 			}
 		}
     }
@@ -43,11 +43,13 @@ class PageController extends Zend_Controller_Action
 				
 				// upload the image
 				if($pageForm->image->isUploaded()){
-				$pageForm->image->receive(); $itemPage->image = '/images/upload/' .
+					$pageForm->image->receive(); 
+					$itemPage->image = '/images/upload/' .
 				basename($pageForm->image->getFileName());
 				}
 				
-				// save the content item $itemPage->save();
+				// save the content item 
+				$itemPage->save();
 				return $this->_forward('list');
 			}
         }
@@ -85,7 +87,8 @@ class PageController extends Zend_Controller_Action
         			$pageForm->image->receive(); 
           			$itemPage->image = '/images/upload/' . basename($pageForm->image->getFileName());
         		}
-        		// save the content item $itemPage->save();
+        		// save the content item 
+        		$itemPage->save();
         		return $this->_forward('list');
         	}
         }
@@ -104,8 +107,8 @@ class PageController extends Zend_Controller_Action
 		$pageForm->addElement($imagePreview);
 		$this->view->form = $pageForm;
     }
-    
-    public function deleteAction () 
+
+    public function deleteAction()
     {
     	$id = $this->_request->getParam('id'); 
     	$itemPage = new OSMOSYS_Content_Item_Page($id); 
@@ -113,8 +116,25 @@ class PageController extends Zend_Controller_Action
     	return $this->_forward('list');
     }
 
+    public function openAction()
+    {
+    	$id = $this->_request->getParam('id'); 
+    	// first confirm the page exists 
+    	$pageModel = new Model_Page(); 
+    	if(!$pageModel->find($id)->current()) {
+	    	// the error handler will catch this exception 
+	    	throw new Zend_Controller_Action_Exception(
+	    		"The page you requested was not found", 404);
+    	}else{
+    		$this->view->page = new OSMOSYS_Content_Item_Page($id);
+    	}
+    	
+    }
+
 
 }
+
+
 
 
 
