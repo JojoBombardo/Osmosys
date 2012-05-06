@@ -122,9 +122,9 @@ class PageController extends Zend_Controller_Action
     	// first confirm the page exists 
     	$pageModel = new Model_Page(); 
     	if(!$pageModel->find($id)->current()) {
-	    	// the error handler will catch this exception 
-	    	throw new Zend_Controller_Action_Exception(
-	    		"The page you requested was not found", 404);
+    		// the error handler will catch this exception 
+    		throw new Zend_Controller_Action_Exception(
+    			"The page you requested was not found", 404);
     	}else{
     		$this->view->page = new OSMOSYS_Content_Item_Page($id);
     	}

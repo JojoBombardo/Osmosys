@@ -1,11 +1,11 @@
 <?php
 echo '<?xml version="1.0" encoding="UTF-8" ?>';
 echo $this->doctype();
-/*$this->layout()->nav = $this->action('render', 'menu', null,
+$this->layout()->nav = $this->action('render', 'menu', null,
 	array('menu' => $this->mainMenuId)); 
 $this->layout()->adminMenu = $this->action(
 	'render', 'menu', null, array('menu' => $this->adminMenuId) 
-);*/
+);
 $this->layout()->userForm = $this->action('index', 'user'); 
 ?>
 
