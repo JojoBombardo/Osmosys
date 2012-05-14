@@ -7,7 +7,7 @@ class Model_User extends Zend_Db_Table_Abstract {
 	 * The default table name */
 	protected $_name = 'users';
 	
-	public function createUser($username, $password, $firstName, $lastName, $role) 
+	public function createUser($username, $password, $firstName, $lastName, $role, $image) 
 	{
 		// create a new row
 		$rowUser = $this->createRow(); 
@@ -18,6 +18,7 @@ class Model_User extends Zend_Db_Table_Abstract {
 			$rowUser->first_name = $firstName; 
 			$rowUser->last_name = $lastName; 
 			$rowUser->role = $role; 
+			$rowUser->image = $image;
 			$rowUser->save();
 			
 			//return the new user

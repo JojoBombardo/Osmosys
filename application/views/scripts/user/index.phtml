@@ -4,4 +4,5 @@
 <?php }else{ ?>
 	<p>Welcome back <?php echo $this->identity->first_name;?></p>
 	<p>To log out <a href='/user/logout'>click here</a></p> 
+	<p>To edit your profile <a href='/user/update/id/<?php echo $this->currentId;?>'>click here</a></p> 
 <?php } ?>

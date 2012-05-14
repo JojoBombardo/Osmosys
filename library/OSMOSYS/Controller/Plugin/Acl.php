@@ -19,6 +19,7 @@ class OSMOSYS_Controller_Plugin_Acl extends Zend_Controller_Plugin_Abstract
 		$acl->add(new Zend_Acl_Resource('menuitem')); 
 		$acl->add(new Zend_Acl_Resource('user'));
 		$acl->add(new Zend_Acl_Resource('search'));
+		$acl->add(new Zend_Acl_Resource('bug'));
 		
 		// set up the access rules 
 		$acl->allow(null, array('index', 'error'));
@@ -26,11 +27,11 @@ class OSMOSYS_Controller_Plugin_Acl extends Zend_Controller_Plugin_Abstract
 		// a guest can only read content and login 
 		$acl->allow('guest', 'page', array('index', 'open')); 
 		$acl->allow('guest', 'menu', array('render')); 
-		$acl->allow('guest', 'user', array('login'));
+		$acl->allow('guest', 'user', array('login','create','logout'));
 		$acl->allow('guest', 'search', array('index', 'search'));
 		
 		// cms users can also work with content
-		$acl->allow('user', 'page', array('list', 'create', 'edit', 'delete'));
+		$acl->allow('user', 'page', array('list', 'create', 'edit', 'delete', 'logout'));
 		
 		// administrators can do anything 
 		$acl->allow('administrator', null);

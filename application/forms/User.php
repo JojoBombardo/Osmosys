@@ -45,6 +45,21 @@ class Form_User extends Zend_Form
 		$role->addMultiOption('Administrator', 'administrator'); 
 		$this->addElement($role);
 		
+		// User Image
+		$image = $this->createElement('file', 'image');
+		// element options
+		$image->setLabel('Image: ');
+		$image->setRequired(FALSE);
+		$image->setDestination(APPLICATION_PATH . '/../public/images/upload');
+		// ensure only 1 file
+		$image->addValidator('Count', false, 1);
+		// limit to 100K
+		$image->addValidator('Size', false, 102400);
+		// only JPEG, PNG, and GIFs
+		$image->addValidator('Extension', false, 'jpg,png,gif');
+		// add the element to the form
+		$this->addElement($image);
+		
 		$submit = $this->addElement('submit', 'submit', array('label' => 'Submit'));
 	}
 } 

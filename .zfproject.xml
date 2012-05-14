@@ -31,6 +31,7 @@
           <actionMethod actionName="password"/>
           <actionMethod actionName="login"/>
           <actionMethod actionName="logout"/>
+          <actionMethod actionName="thumbnail"/>
         </controllerFile>
         <controllerFile controllerName="Search">
           <actionMethod actionName="index"/>
@@ -157,6 +158,9 @@
           </viewControllerScriptsDirectory>
           <viewControllerScriptsDirectory forControllerName="Menu">
             <viewScriptFile forActionName="render"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="User">
+            <viewScriptFile forActionName="thumbnail"/>
           </viewControllerScriptsDirectory>
         </viewScriptsDirectory>
         <viewHelpersDirectory/>

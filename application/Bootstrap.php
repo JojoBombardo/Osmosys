@@ -4,9 +4,9 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
 	protected function _initView() {
 		// Initialize view
 		$view = new Zend_View ();
-		$view->doctype ( 'XHTML1_STRICT' );
+		$view->doctype ( 'HTML5' );
 		$view->headTitle ( 'Osmosys' );
-		$view->skin = 'blues';
+		$view->skin = 'browns';
 		
 		// Add it to the ViewRenderer
 		$viewRenderer = Zend_Controller_Action_HelperBroker::getStaticHelper ( 'ViewRenderer' );

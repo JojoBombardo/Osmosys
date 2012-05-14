@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<skin>
+	<stylesheets>
+		<stylesheet>html5reset-1.6.1.css</stylesheet>
+		<stylesheet>960_16_col.css</stylesheet>
+		<stylesheet>layout.css</stylesheet>
+		<stylesheet>text.css</stylesheet>
+		<stylesheet>form.css</stylesheet>
+		<stylesheet>nav.css</stylesheet>		
+	</stylesheets>
+</skin>

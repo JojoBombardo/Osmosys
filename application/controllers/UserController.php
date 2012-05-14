@@ -14,6 +14,7 @@ class UserController extends Zend_Controller_Action
 	    
 		if($auth->hasIdentity()) {
 			$this->view->identity = $auth->getIdentity();
+			$this->view->currentId = $auth->getIdentity()->id;
 		}
     }
 
@@ -28,9 +29,11 @@ class UserController extends Zend_Controller_Action
 					$userForm->getValue('password'), 
 					$userForm->getValue('first_name'), 
 					$userForm->getValue('last_name'), 
-					$userForm->getValue('role')
+					$userForm->getValue('role'),
+					$userForm->getValue('image')
 				);
-				return $this->_forward('list'); }
+				return $this->_forward('login'); 
+			}
 		} 
 		$userForm->setAction('/user/create'); 
 		$this->view->form = $userForm;
@@ -59,13 +62,27 @@ class UserController extends Zend_Controller_Action
 					$userForm->getValue('username'), 
 					$userForm->getValue('first_name'), 
 					$userForm->getValue('last_name'), 
-					$userForm->getValue('role')
+					$userForm->getValue('role'),
+					$userForm->getValue('image')
 				);
 				return $this->_forward('list'); } 
 		} else {
 			$id = $this->_request->getParam('id'); 
 			$currentUser = $userModel->find($id)->current(); 
 			$userForm->populate($currentUser->toArray());
+			
+			// create the image preview
+			$imagePreview = $userForm->createElement('image', 'image_preview');
+			
+			// element options
+			$imagePreview->setLabel('Preview Image: ');
+			$imagePreview->setAttrib('style', 'width:200px;height:auto;');
+			
+			// add the element to the form
+			$imagePreview->setOrder(4);
+			$image = '/images/upload/'.$currentUser->image;
+			$imagePreview->setImage($image);
+			$userForm->addElement($imagePreview);
 		}
 		$this->view->form = $userForm; 
     }
@@ -78,6 +95,8 @@ class UserController extends Zend_Controller_Action
         $passwordForm->removeElement('last_name'); 
         $passwordForm->removeElement('username'); 
         $passwordForm->removeElement('role'); 
+        $passwordForm->removeElement('image');
+        
         $userModel = new Model_User();
 		if ($this->_request->isPost()) {
 			if ($passwordForm->isValid($_POST)) {
@@ -109,6 +128,7 @@ class UserController extends Zend_Controller_Action
         $userForm->removeElement('first_name'); 
         $userForm->removeElement('last_name'); 
         $userForm->removeElement('role'); 
+        $userForm->removeElement('image');
         
         if ($this->_request->isPost() && $userForm->isValid($_POST)) {
         	$data = $userForm->getValues();
@@ -128,7 +148,7 @@ class UserController extends Zend_Controller_Action
         		$auth = Zend_Auth::getInstance();
         		$storage = $auth->getStorage(); 
         		$storage->write($authAdapter->getResultRowObject(
-        				array('username' , 'first_name' , 'last_name', 'role'))); 
+        				array('id','username' , 'first_name' , 'last_name', 'role', 'image'))); 
         		return $this->_forward('index');
         	} else { 
         		$this->view->loginMessage = "Sorry, your username or password was incorrect";
@@ -138,12 +158,27 @@ class UserController extends Zend_Controller_Action
         $this->view->form = $userForm;
     }
 
-    public function logoutAction () 
+    public function logoutAction()
     {
     	$authAdapter = Zend_Auth::getInstance();
     	$authAdapter->clearIdentity();
     }
+
+    public function thumbnailAction()
+    {
+    	$auth = Zend_Auth::getInstance();
+	    
+		if($auth->hasIdentity()) {
+			$this->view->identity = $auth->getIdentity();
+			$this->view->currentId = $auth->getIdentity()->id;
+			$this->view->thumbnail = '/images/upload/'.$auth->getIdentity()->image;
+		}
+    }
+
+
 }
+
+
 
 
 
